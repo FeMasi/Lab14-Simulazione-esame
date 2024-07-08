@@ -69,3 +69,10 @@ class Model:
 
     def get_edges(self):
         return list(self._graph.edges(data=True))
+
+    def contaArchiMaggioriDiSoglia(self, s):
+
+        pass
+
+    def contaArchiMinoriDiSoglia(self, s):
+        pass

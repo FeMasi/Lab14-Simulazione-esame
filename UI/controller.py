@@ -16,11 +16,25 @@ class Controller:
         self._view.txt_result.controls.append(ft.Text(f"Arco di peso minimo: {self._model.getMinimumWeight()}"))
         self._view.update_page()
     def handle_countedges(self, e):
-        soglia = int(self._view.txt_name.value)
-        print(soglia)
+        self._view.txt_result2.clean()
+        self._view.txt_result3.clean()
+        soglia = float(self._view.txt_name.value)
+        #print(soglia)
         if soglia > self._model.getMaximumWeight() or soglia < self._model.getMinimumWeight():
             self._view.create_alert("Valore di soglia non valida!")
-
-
+        self._view.txt_result2.controls.append(ft.Text(f"Numero di archi con peso maggiore della soglia: {self._model.contaArchiMaggioriDiSoglia(soglia)}"))
+        self._view.txt_result2.controls.append(ft.Text(
+            f"Numero di archi con peso minore della soglia: {self._model.contaArchiMinoriDiSoglia(soglia)}"))
+        self._view.update_page()
     def handle_search(self, e):
-        pass
+        self._view.txt_result3.clean()
+        soglia = float(self._view.txt_name.value)
+
+        self._model.cerca_cammino(soglia)
+        self._view.txt_result3.controls.append(ft.Text(f"Numero archi percorso più lungo: {len(self._model.solBest)}"))
+        self._view.txt_result3.controls.append(ft.Text(f"Peso complessivo del cammino: {self._model.computeWeightPath(self._model.solBest)}"))
+        for e in self._model.solBest:
+            self._view.txt_result3.controls.append(ft.Text(f"{e[0]} --> {e[1]}: {e[2]['weight']}"))
+
+
+        self._view.update_page()

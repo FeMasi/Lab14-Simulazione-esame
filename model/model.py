@@ -86,6 +86,7 @@ class Model:
         return c
 
     def cerca_cammino(self, s):
+        self._numRicorsione = 0
         self.solBest.clear()
         for n in self.get_nodes():
             partial= []
